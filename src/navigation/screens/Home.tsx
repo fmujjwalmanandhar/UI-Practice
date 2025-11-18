@@ -1,24 +1,70 @@
-import { Button, Text } from '@react-navigation/elements';
-import { StyleSheet, View } from 'react-native';
+import { StyleSheet } from "react-native";
+import Animated, {
+  interpolate,
+  useAnimatedRef,
+  useAnimatedStyle,
+  useScrollOffset,
+} from "react-native-reanimated";
+import { useSafeAreaInsets } from "react-native-safe-area-context";
+import Card from "../../components/card";
+import FeaturedCard from "../../components/FeaturedCard";
+import Header from "../../components/header";
+import QuickActions from "../../components/QuickActions";
+import RecentActivities from "../../components/RecentActivities";
 
+const HEADER_HEIGHT = 206;
 export function Home() {
+  const inset = useSafeAreaInsets();
+  const scrollRef = useAnimatedRef<Animated.ScrollView>();
+  const scrollOffset = useScrollOffset(scrollRef);
+  const rstickyElementStyle = useAnimatedStyle(() => {
+    return {
+      transform: [
+        {
+          translateY: interpolate(
+            scrollOffset.value,
+            [
+              HEADER_HEIGHT + inset.top / 2 - 1,
+              HEADER_HEIGHT + inset.top / 2,
+              HEADER_HEIGHT + inset.top / 2 + 1,
+            ],
+            [0, 0, 1]
+          ),
+        },
+      ],
+    };
+  });
   return (
-    <View style={styles.container}>
-      <Text>Home Screen</Text>
-      <Text>Open up 'src/App.tsx' to start working on your app!</Text>
-      <Button screen="Profile" params={{ user: 'jane' }}>
-        Go to Profile
-      </Button>
-      <Button screen="Settings">Go to Settings</Button>
-    </View>
+    <Animated.View style={styles.mainContainer}>
+      <Animated.ScrollView
+        style={styles.container}
+        ref={scrollRef}
+        scrollEventThrottle={16}
+        contentInsetAdjustmentBehavior="automatic"
+        contentContainerStyle={styles.scrollViewContent}
+      >
+        <Header />
+        <Card />
+        <Animated.View style={[styles.header, rstickyElementStyle]}>
+          <QuickActions scrollY={scrollOffset} />
+        </Animated.View>
+        <RecentActivities />
+        <FeaturedCard />
+      </Animated.ScrollView>
+    </Animated.View>
   );
 }
 
 const styles = StyleSheet.create({
+  mainContainer: { flex: 1, backgroundColor: "white" },
   container: {
     flex: 1,
-    justifyContent: 'center',
-    alignItems: 'center',
-    gap: 10,
+  },
+  scrollViewContent: {
+    flexGrow: 1,
+  },
+  header: {
+    overflow: "hidden",
+    zIndex: 100,
   },
 });
