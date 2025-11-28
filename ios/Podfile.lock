@@ -1569,6 +1569,51 @@ PODS:
     - ReactNativeDependencies
     - SwiftUIIntrospect (~> 1.0)
     - Yoga
+  - react-native-keyboard-controller (1.18.5):
+    - hermes-engine
+    - RCTRequired
+    - RCTTypeSafety
+    - React-Core
+    - React-Core-prebuilt
+    - React-debug
+    - React-Fabric
+    - React-featureflags
+    - React-graphics
+    - React-ImageManager
+    - React-jsi
+    - react-native-keyboard-controller/common (= 1.18.5)
+    - React-NativeModulesApple
+    - React-RCTFabric
+    - React-renderercss
+    - React-rendererdebug
+    - React-utils
+    - ReactCodegen
+    - ReactCommon/turbomodule/bridging
+    - ReactCommon/turbomodule/core
+    - ReactNativeDependencies
+    - Yoga
+  - react-native-keyboard-controller/common (1.18.5):
+    - hermes-engine
+    - RCTRequired
+    - RCTTypeSafety
+    - React-Core
+    - React-Core-prebuilt
+    - React-debug
+    - React-Fabric
+    - React-featureflags
+    - React-graphics
+    - React-ImageManager
+    - React-jsi
+    - React-NativeModulesApple
+    - React-RCTFabric
+    - React-renderercss
+    - React-rendererdebug
+    - React-utils
+    - ReactCodegen
+    - ReactCommon/turbomodule/bridging
+    - ReactCommon/turbomodule/core
+    - ReactNativeDependencies
+    - Yoga
   - react-native-safe-area-context (5.6.2):
     - hermes-engine
     - RCTRequired
@@ -2260,6 +2305,7 @@ DEPENDENCIES:
   - React-Mapbuffer (from `../node_modules/react-native/ReactCommon`)
   - React-microtasksnativemodule (from `../node_modules/react-native/ReactCommon/react/nativemodule/microtasks`)
   - react-native-bottom-tabs (from `../node_modules/react-native-bottom-tabs`)
+  - react-native-keyboard-controller (from `../node_modules/react-native-keyboard-controller`)
   - react-native-safe-area-context (from `../node_modules/react-native-safe-area-context`)
   - React-NativeModulesApple (from `../node_modules/react-native/ReactCommon/react/nativemodule/core/platform/ios`)
   - React-oscompat (from `../node_modules/react-native/ReactCommon/oscompat`)
@@ -2410,6 +2456,8 @@ EXTERNAL SOURCES:
     :path: "../node_modules/react-native/ReactCommon/react/nativemodule/microtasks"
   react-native-bottom-tabs:
     :path: "../node_modules/react-native-bottom-tabs"
+  react-native-keyboard-controller:
+    :path: "../node_modules/react-native-keyboard-controller"
   react-native-safe-area-context:
     :path: "../node_modules/react-native-safe-area-context"
   React-NativeModulesApple:
@@ -2539,6 +2587,7 @@ SPEC CHECKSUMS:
   React-Mapbuffer: 823a2c0e0d1826c784f808174626d5229f59be17
   React-microtasksnativemodule: 70cdf4826e52c7bcf98bc55255c3e30b5455d318
   react-native-bottom-tabs: 08ad7b306d6024cffcc37b9ec69f7f98363abb7f
+  react-native-keyboard-controller: 5587bad7f102125e2020720c4e37e0b58ff5e52e
   react-native-safe-area-context: 53f796cb6c814661bbe99fbdfd0585d07b996cdd
   React-NativeModulesApple: e653919faff1f76eadf02373bda26c085bf348e3
   React-oscompat: 73db7dbc80edef36a9d6ed3c6c4e1724ead4236d

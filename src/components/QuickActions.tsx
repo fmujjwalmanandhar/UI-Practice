@@ -71,7 +71,7 @@ const styles = StyleSheet.create({
     alignSelf: "stretch",
     // marginTop: 24,
     paddingHorizontal: 24,
-    paddingTop: 16 + 24,
+    paddingTop: 48,
     paddingBottom: 16,
     backgroundColor: "white",
   },

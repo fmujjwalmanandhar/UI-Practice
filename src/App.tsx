@@ -6,6 +6,11 @@ import * as SplashScreen from "expo-splash-screen";
 import * as React from "react";
 import { useColorScheme } from "react-native";
 import { GestureHandlerRootView } from "react-native-gesture-handler";
+import { KeyboardProvider } from "react-native-keyboard-controller";
+import {
+  initialWindowMetrics,
+  SafeAreaProvider,
+} from "react-native-safe-area-context";
 import { Navigation } from "./navigation";
 Asset.loadAsync([
   ...NavigationAssets,
@@ -23,17 +28,21 @@ export function App() {
   const theme = colorScheme === "dark" ? DarkTheme : DefaultTheme;
 
   return (
-    <GestureHandlerRootView>
-      <Navigation
-        theme={theme}
-        linking={{
-          enabled: "auto",
-          prefixes: [prefix],
-        }}
-        onReady={() => {
-          SplashScreen.hideAsync();
-        }}
-      />
-    </GestureHandlerRootView>
+    <SafeAreaProvider initialMetrics={initialWindowMetrics}>
+      <GestureHandlerRootView>
+        <KeyboardProvider preserveEdgeToEdge>
+          <Navigation
+            theme={theme}
+            linking={{
+              enabled: "auto",
+              prefixes: [prefix],
+            }}
+            onReady={() => {
+              SplashScreen.hideAsync();
+            }}
+          />
+        </KeyboardProvider>
+      </GestureHandlerRootView>
+    </SafeAreaProvider>
   );
 }
