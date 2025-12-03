@@ -1,5 +1,6 @@
 import { Assets as NavigationAssets } from "@react-navigation/elements";
 import { DarkTheme, DefaultTheme } from "@react-navigation/native";
+import { QueryClient, QueryClientProvider } from "@tanstack/react-query";
 import { Asset } from "expo-asset";
 import { createURL } from "expo-linking";
 import * as SplashScreen from "expo-splash-screen";
@@ -24,6 +25,7 @@ const prefix = createURL("/");
 
 export function App() {
   const colorScheme = useColorScheme();
+  const [queryClient] = React.useState(() => new QueryClient());
 
   const theme = colorScheme === "dark" ? DarkTheme : DefaultTheme;
 
@@ -31,16 +33,18 @@ export function App() {
     <SafeAreaProvider initialMetrics={initialWindowMetrics}>
       <GestureHandlerRootView>
         <KeyboardProvider preserveEdgeToEdge>
-          <Navigation
-            theme={theme}
-            linking={{
-              enabled: "auto",
-              prefixes: [prefix],
-            }}
-            onReady={() => {
-              SplashScreen.hideAsync();
-            }}
-          />
+          <QueryClientProvider client={queryClient}>
+            <Navigation
+              theme={theme}
+              linking={{
+                enabled: "auto",
+                prefixes: [prefix],
+              }}
+              onReady={() => {
+                SplashScreen.hideAsync();
+              }}
+            />
+          </QueryClientProvider>
         </KeyboardProvider>
       </GestureHandlerRootView>
     </SafeAreaProvider>

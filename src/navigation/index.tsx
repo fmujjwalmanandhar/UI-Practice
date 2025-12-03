@@ -1,17 +1,16 @@
 import { createNativeBottomTabNavigator } from "@bottom-tabs/react-navigation";
-import { HeaderButton, Text } from "@react-navigation/elements";
+import { Button, HeaderButton, Text } from "@react-navigation/elements";
 import {
   createStaticNavigation,
   StaticParamList,
-  useNavigation,
 } from "@react-navigation/native";
 import { createNativeStackNavigator } from "@react-navigation/native-stack";
-import { Pressable } from "react-native";
-import { SafeAreaView } from "react-native-safe-area-context";
+import { StyleSheet, View } from "react-native";
 import Explore from "./screens/Explore";
 import { Home } from "./screens/Home";
 import { NotFound } from "./screens/NotFound";
-import { Profile } from "./screens/Profile";
+import ProfileDetails from "./screens/ProfileDetails";
+import SearchExplore from "./screens/SearchExplore";
 import { Settings } from "./screens/Settings";
 
 const Tab = createNativeBottomTabNavigator();
@@ -28,10 +27,9 @@ function HomeTabs() {
       />
       <Tab.Screen
         name="Search"
-        component={Search}
+        component={SearchExplore}
         options={{
           tabBarIcon: () => ({ sfSymbol: "globe" }),
-          // preventsDefault: true, // Prevents automatic tab switching
         }}
       />
       <Tab.Screen
@@ -46,24 +44,23 @@ function HomeTabs() {
   );
 }
 
-const Search = () => {
-  const navigation = useNavigation();
+export function Profile() {
   return (
-    <SafeAreaView
-      style={{ flex: 1, justifyContent: "center", alignItems: "center" }}
-    >
-      <Pressable
-        onPress={() => {
-          navigation.navigate("ExploreStack" as never);
-        }}
-        hitSlop={20}
-        pressRetentionOffset={20}
-      >
-        <Text>Go to Explore Screen</Text>
-      </Pressable>
-    </SafeAreaView>
+    <View style={styles.container}>
+      <Text>ProfileDetails</Text>
+      <Button screen="ProfileStack">Go to ProfileDetails</Button>
+    </View>
   );
-};
+}
+
+const styles = StyleSheet.create({
+  container: {
+    flex: 1,
+    justifyContent: "center",
+    alignItems: "center",
+    gap: 10,
+  },
+});
 
 const headerOptions = {
   headerShown: true,
@@ -90,7 +87,29 @@ const ExploreStackScreens = () => {
   );
 };
 
+const ProfileStackScreens = () => {
+  return (
+    <ProfileStack.Navigator>
+      <ProfileStack.Screen
+        options={({ navigation }) => ({
+          ...headerOptions,
+          headerTitle: "ProfileDetails",
+          headerBackVisible: false,
+          headerLeft: (props) => (
+            <HeaderButton onPress={navigation.goBack}>
+              <Text style={{ color: props.tintColor }}>Back</Text>
+            </HeaderButton>
+          ),
+        })}
+        component={ProfileDetails}
+        name="ProfileDetails"
+      />
+    </ProfileStack.Navigator>
+  );
+};
+
 const ExploreStack = createNativeStackNavigator();
+const ProfileStack = createNativeStackNavigator();
 const RootStack = createNativeStackNavigator({
   screens: {
     HomeTabs: {
@@ -116,6 +135,12 @@ const RootStack = createNativeStackNavigator({
     },
     ExploreStack: {
       screen: ExploreStackScreens,
+      options: ({ navigation }) => ({
+        headerShown: false,
+      }),
+    },
+    ProfileStack: {
+      screen: ProfileStackScreens,
       options: ({ navigation }) => ({
         headerShown: false,
       }),

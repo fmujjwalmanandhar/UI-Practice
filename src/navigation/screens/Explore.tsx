@@ -12,7 +12,11 @@ import Reanimated, {
   useSharedValue,
 } from "react-native-reanimated";
 
-export const Message = ({ text, sender }) => {
+type MessageProps = {
+  text: string;
+  sender?: boolean;
+};
+export const Message = ({ text, sender }: MessageProps) => {
   return (
     <View style={sender ? styles.senderContainer : styles.recipientContainer}>
       <Text style={styles.message}>{text}</Text>
